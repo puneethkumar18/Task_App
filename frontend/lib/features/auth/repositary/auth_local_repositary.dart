@@ -1,9 +1,8 @@
 import 'package:frontend/models/user_model.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:sqflite/sqlite_api.dart';
 
-class AuthLoacalRepositary {
+class AuthLocalRepositary {
   String tableName = "users";
 
   Database? _database;
@@ -27,7 +26,7 @@ class AuthLoacalRepositary {
         token TEXT NOT NULL,
         name TEXT NOT NULL,
         createdAt int NOT NULL,
-        updatedAt int NOT NULL,
+        updatedAt int NOT NULL
         )
       ''');
     });

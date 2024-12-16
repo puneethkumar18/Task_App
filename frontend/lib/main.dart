@@ -34,6 +34,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'Task App',
       theme: ThemeData(
+        fontFamily: "Cera Pro",
         inputDecorationTheme: InputDecorationTheme(
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),

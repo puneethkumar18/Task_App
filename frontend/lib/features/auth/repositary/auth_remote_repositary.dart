@@ -2,10 +2,12 @@ import 'dart:convert';
 
 import 'package:frontend/core/constants/constants.dart';
 import 'package:frontend/core/services/sp_services.dart';
+import 'package:frontend/features/auth/repositary/auth_local_repositary.dart';
 import 'package:frontend/models/user_model.dart';
 import 'package:http/http.dart' as http;
 
 class AuthRemoteRepositary {
+  final authLocalRepositray = AuthLocalRepositary();
   final spServices = SpServices();
 
   Future<UserModel> signUp({
@@ -87,7 +89,8 @@ class AuthRemoteRepositary {
       }
       return UserModel.fromJson(userData.body);
     } catch (e) {
-      return null;
+      final user = await authLocalRepositray.getUser();
+      return user;
     }
   }
 }

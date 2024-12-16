@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frontend/core/services/sp_services.dart';
+import 'package:frontend/features/auth/repositary/auth_local_repositary.dart';
 import 'package:frontend/features/auth/repositary/auth_remote_repositary.dart';
 import 'package:frontend/models/user_model.dart';
 
@@ -8,6 +9,7 @@ part 'auth_state.dart';
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthInitial());
   final authRemoteRepositary = AuthRemoteRepositary();
+  final authLocalRepositary = AuthLocalRepositary();
   final spServices = SpServices();
 
   void signUp({
@@ -41,6 +43,8 @@ class AuthCubit extends Cubit<AuthState> {
       if (user.token.isNotEmpty) {
         await spServices.setToken(user.token);
       }
+
+      await authLocalRepositary.insertUser(user);
       emit(AuthLoggedIn(user));
     } catch (e) {
       emit(AuthError(e.toString()));
@@ -52,6 +56,7 @@ class AuthCubit extends Cubit<AuthState> {
       emit(AuthLoading());
       final user = await authRemoteRepositary.getUserData();
       if (user != null) {
+        await authLocalRepositary.insertUser(user);
         emit(AuthLoggedIn(user));
       } else {
         emit(AuthInitial());
