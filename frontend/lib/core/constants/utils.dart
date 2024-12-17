@@ -7,3 +7,17 @@ Color strengthnColor(Color color, double factor) {
 
   return Color.fromARGB(color.alpha, r, g, b);
 }
+
+List<DateTime> generateWeekDates(int dateOffSet) {
+  final today = DateTime.now();
+  DateTime startOfTheWeek = today.subtract(Duration(days: today.weekday - 1));
+
+  startOfTheWeek = startOfTheWeek.subtract(Duration(days: dateOffSet * 7));
+
+  return List.generate(
+    7,
+    (index) => startOfTheWeek.add(
+      Duration(days: index),
+    ),
+  );
+}
