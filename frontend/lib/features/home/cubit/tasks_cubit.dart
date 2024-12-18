@@ -4,10 +4,10 @@ import 'package:frontend/core/constants/utils.dart';
 import 'package:frontend/features/home/repositary/task_remote_repositary.dart';
 import 'package:frontend/models/task_model.dart';
 
-part 'add_new_task_state.dart';
+part 'tasks_state.dart';
 
-class AddNewTaskCubit extends Cubit<AddNewTaskState> {
-  AddNewTaskCubit() : super(AddNewTaskInitial());
+class TasksCubit extends Cubit<TasksState> {
+  TasksCubit() : super(TasksInitial());
   final taskRemoteRepositary = TaskRemoteRepositary();
   Future<void> createTask({
     required String title,
@@ -17,7 +17,7 @@ class AddNewTaskCubit extends Cubit<AddNewTaskState> {
     required DateTime dueAt,
   }) async {
     try {
-      emit(AddNewTaskLoading());
+      emit(TasksLoading());
       final taskModel = await taskRemoteRepositary.createTask(
         title: title,
         description: description,
@@ -25,11 +25,23 @@ class AddNewTaskCubit extends Cubit<AddNewTaskState> {
         token: token,
         dueAt: dueAt,
       );
-      emit(AddNewTaskSuccess(taskModel));
+      emit(TasksSuccess(taskModel));
     } catch (e) {
       emit(
-        AddNewTaskError(e.toString()),
+        TasksError(e.toString()),
       );
+    }
+  }
+
+  Future<void> fetchTasks({
+    required String token,
+  }) async {
+    try {
+      emit(TasksLoading());
+      final tasks = await taskRemoteRepositary.fetchTasks(token: token);
+      emit(TasksList(tasks));
+    } catch (e) {
+      emit(TasksError(e.toString()));
     }
   }
 }

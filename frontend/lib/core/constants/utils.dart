@@ -1,4 +1,4 @@
-import 'dart:ui';
+import 'package:flutter/material.dart';
 
 Color strengthnColor(Color color, double factor) {
   int r = (color.red * factor).clamp(0, 255).toInt();
@@ -23,11 +23,9 @@ List<DateTime> generateWeekDates(int dateOffSet) {
 }
 
 String rgbToHex(Color color) {
-  return "${color.red.toRadixString(16).padLeft(2, "0")}${color.green.toRadixString(16).padLeft(2, "0")}${color.blue.toRadixString(16).padLeft(2, "0")}";
+  return '${color.red.toRadixString(16).padLeft(2, '0')}${color.green.toRadixString(16).padLeft(2, '0')}${color.blue.toRadixString(16).padLeft(2, '0')}';
 }
 
 Color hexToRGB(String hexColor) {
-  return Color(
-    int.parse(hexColor, radix: 16) + 0xFF000000,
-  );
+  return Color(int.parse(hexColor, radix: 16) + 0xFF000000);
 }

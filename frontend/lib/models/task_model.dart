@@ -4,6 +4,7 @@ class TaskModel {
   final String id;
   final String uid;
   final String title;
+  final String hexaColor;
   final String description;
   final DateTime createdAt;
   final DateTime updatedAt;
@@ -12,6 +13,7 @@ class TaskModel {
     required this.id,
     required this.uid,
     required this.title,
+    required this.hexaColor,
     required this.description,
     required this.createdAt,
     required this.updatedAt,
@@ -22,6 +24,7 @@ class TaskModel {
     String? id,
     String? uid,
     String? title,
+    String? hexaColor,
     String? description,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -31,6 +34,7 @@ class TaskModel {
       id: id ?? this.id,
       uid: uid ?? this.uid,
       title: title ?? this.title,
+      hexaColor: hexaColor ?? this.hexaColor,
       description: description ?? this.description,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
@@ -44,6 +48,7 @@ class TaskModel {
     result.addAll({'id': id});
     result.addAll({'uid': uid});
     result.addAll({'title': title});
+    result.addAll({'hexaColor': hexaColor});
     result.addAll({'description': description});
     result.addAll({'createdAt': createdAt.millisecondsSinceEpoch});
     result.addAll({'updatedAt': updatedAt.millisecondsSinceEpoch});
@@ -57,6 +62,7 @@ class TaskModel {
       id: map['id'] ?? '',
       uid: map['uid'] ?? '',
       title: map['title'] ?? '',
+      hexaColor: map['hexaColor'] ?? '',
       description: map['description'] ?? '',
       createdAt: DateTime.parse(map['createdAt']),
       updatedAt: DateTime.parse(map['updatedAt']),
@@ -71,7 +77,7 @@ class TaskModel {
 
   @override
   String toString() {
-    return 'TaskModel(id: $id, uid: $uid, title: $title, description: $description, createdAt: $createdAt, updatedAt: $updatedAt, dueAt: $dueAt)';
+    return 'TaskModel(id: $id, uid: $uid, title: $title, hexaColor: $hexaColor, description: $description, createdAt: $createdAt, updatedAt: $updatedAt, dueAt: $dueAt)';
   }
 
   @override
@@ -82,6 +88,7 @@ class TaskModel {
         other.id == id &&
         other.uid == uid &&
         other.title == title &&
+        other.hexaColor == hexaColor &&
         other.description == description &&
         other.createdAt == createdAt &&
         other.updatedAt == updatedAt &&
@@ -93,6 +100,7 @@ class TaskModel {
     return id.hashCode ^
         uid.hashCode ^
         title.hashCode ^
+        hexaColor.hashCode ^
         description.hashCode ^
         createdAt.hashCode ^
         updatedAt.hashCode ^
