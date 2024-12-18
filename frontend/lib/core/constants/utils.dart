@@ -21,3 +21,13 @@ List<DateTime> generateWeekDates(int dateOffSet) {
     ),
   );
 }
+
+String rgbToHex(Color color) {
+  return "${color.red.toRadixString(16).padLeft(2, "0")}${color.green.toRadixString(16).padLeft(2, "0")}${color.blue.toRadixString(16).padLeft(2, "0")}";
+}
+
+Color hexToRGB(String hexColor) {
+  return Color(
+    int.parse(hexColor, radix: 16) + 0xFF000000,
+  );
+}
